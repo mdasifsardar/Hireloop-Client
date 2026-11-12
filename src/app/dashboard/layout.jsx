@@ -1,10 +1,10 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+import { DashboardSidebar } from "@/components/Dashboard/DashboardSidebar";
 
 export default function Layout({ children }) {
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <DashboardSidebar />
       <main>
         <SidebarTrigger />
         {children}

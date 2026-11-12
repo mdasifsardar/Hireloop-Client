@@ -3,9 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, LogOut } from "lucide-react";
-import { toast } from "sonner";
 import { cn } from "cn";
 
 import logo from "@/app/images/logo.png";
@@ -59,9 +58,14 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
+
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
 
   const handleSignOut = async () => {
     setSigningOut(true);
