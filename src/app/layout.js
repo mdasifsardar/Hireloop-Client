@@ -36,9 +36,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${spaceMono.variable} h-full antialiased font-[family-name:var(--font-geist-sans)]`}
     >
-      <body className="min-h-full flex flex-col bg-[#010103]">
+      <body className="min-h-full flex flex-col bg-[#010103] text-[oklch(0.985_0_0)]">
         <Navbar />
         {children}
         <Toaster

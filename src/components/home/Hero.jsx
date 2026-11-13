@@ -93,7 +93,7 @@ export default function Hero() {
               autoComplete="off"
               aria-label="Search jobs"
               placeholder="Job title, skill or company"
-              className="w-full min-w-0 border-0 bg-transparent font-sans text-[16px] text-white outline-none placeholder:text-white/80"
+              className="w-full min-w-0 border-0 bg-transparent font-[family-name:var(--font-geist-sans)] text-[16px] text-white outline-none placeholder:text-white/80"
             />
           </div>
 
@@ -115,7 +115,7 @@ export default function Hero() {
               autoComplete="off"
               aria-label="Location"
               placeholder="Location or Remote"
-              className="w-full min-w-0 border-0 bg-transparent font-sans text-[16px] text-white outline-none placeholder:text-white/80"
+              className="w-full min-w-0 border-0 bg-transparent font-[family-name:var(--font-geist-sans)] text-[16px] text-white outline-none placeholder:text-white/80"
             />
           </div>
 

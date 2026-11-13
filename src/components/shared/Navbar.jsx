@@ -25,12 +25,6 @@ import {
 } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 
-const navLinks = [
-  { label: "Browse Jobs", href: "/jobs" },
-  { label: "Company", href: "/companies" },
-  { label: "Pricing", href: "/pricing" },
-];
-
 const signInClasses = cn(
   buttonVariants({
     variant: "ghost",
@@ -50,23 +44,34 @@ const signOutClasses = cn(
 const getStartedClasses = cn(
   buttonVariants({
     className:
-      "h-[52px] rounded-[12px] px-6 text-[18px] font-medium shadow-[inset_0_3px_10px_rgba(255,255,255,0.2)] ring-1 ring-black/10 hover:bg-primary/90",
+      "h-[52px] rounded-[12px] px-6 text-[18px] font-medium shadow-[inset_0_3px_10px_rgba(255,255,255,0.2)] ring-1 ring-black/10 hover:bg-[#5c53fe]/90",
   }),
 );
 
 export default function Navbar() {
+  // --------------- state, router, path
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
+  // --------------- User session
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
+  const navLinks = [
+    { label: "Browse Jobs", href: "/jobs" },
+    { label: "Company", href: "/companies" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Dashboard", href: `/dashboard/${user?.role || "seeker"}` },
+  ];
+
+  // --------------- Disabled navbar in dashboard
   if (pathname?.startsWith("/dashboard")) {
     return null;
   }
 
+  // --------------- Handle sign-out
   const handleSignOut = async () => {
     setSigningOut(true);
 
@@ -192,7 +197,7 @@ export default function Navbar() {
                         variant: "outline",
                         size: "lg",
                         className:
-                          "h-12 w-full rounded-[12px] border-white/15 bg-transparent text-base text-white hover:bg-white/10 hover:text-white dark:bg-transparent dark:hover:bg-white/10",
+                          "h-12 w-full rounded-[12px] border-white/15 bg-transparent text-base text-white hover:bg-white/10 hover:text-white",
                       }),
                     )}
                   >
