@@ -61,17 +61,18 @@ const menuItemsByRole = {
       url: "/dashboard/recruiter",
       icon: LayoutGrid,
     },
-    {
-      id: "recruiter-manage-jobs",
-      name: "Manage Jobs",
-      url: "/dashboard/recruiter/jobs",
-      icon: Briefcase,
-    },
+
     {
       id: "add-jobs",
       name: "Add Job",
       url: "/dashboard/recruiter/jobs/new",
       icon: PlusCircle,
+    },
+    {
+      id: "recruiter-manage-jobs",
+      name: "Manage Jobs",
+      url: "/dashboard/recruiter/jobs",
+      icon: Briefcase,
     },
     {
       id: "recruiter-applications",
@@ -125,10 +126,8 @@ export function DashboardSidebar() {
   const pathname = usePathname();
   const role = session?.user?.role;
 
-  const name = session?.user?.name ?? "Alex Sterling";
-  const roleLabel = role
-    ? role.charAt(0).toUpperCase() + role.slice(1)
-    : "Recruiter";
+  const name = session?.user?.name || "";
+  const roleLabel = role ? role.charAt(0).toUpperCase() + role.slice(1) : "";
   const initials = name
     .split(" ")
     .map((part) => part[0])
@@ -137,17 +136,17 @@ export function DashboardSidebar() {
     .toUpperCase();
 
   return (
-    <Sidebar className="border-r border-white/5">
-      <SidebarHeader className="gap-6 p-5">
+    <Sidebar className="border-r-0!">
+      <SidebarHeader className="gap-1 p-4 pb-0">
         {/* Logo */}
-        <Link href="/" className="px-1 pt-1">
+        <Link href="/" className="flex h-[30px] items-center px-1">
           <Image src={logo} alt="HireLoop" priority className="h-7 w-auto" />
         </Link>
 
         {/* Profile card */}
-        <div className="rounded-xl bg-[#15151d] p-4 ring-1 ring-white/[0.06]">
-          <div className="flex items-center gap-3">
-            <Avatar className="size-11 ring-1 ring-white/10">
+        <div className="rounded-xl border border-[#232327] bg-[#151516] p-3">
+          <div className="flex items-center gap-2">
+            <Avatar className="size-10">
               <AvatarImage
                 src="https://randomuser.me/api/portraits/men/32.jpg"
                 alt={name}
@@ -158,15 +157,15 @@ export function DashboardSidebar() {
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0">
-              <p className="truncate text-[15px] font-semibold leading-tight text-white">
+              <p className="truncate text-sm font-semibold leading-[18px] text-white">
                 {name}
               </p>
-              <p className="mt-1 text-xs leading-tight text-white/45">
+              <p className="text-xs font-medium leading-4 text-[#a0a0ab]">
                 {roleLabel}
               </p>
               <Badge
                 variant="outline"
-                className="mt-3 h-6 rounded-full border-[#5c53fe]/40 bg-[#5c53fe]/10 px-3 text-[10px] font-medium tracking-wide text-[#a79fff] "
+                className="mt-1 rounded-full border-[#5c53fe]/30 bg-[#232338] px-2.5 text-[11px] font-medium leading-none text-[#c3c0ff]"
               >
                 Premium account
               </Badge>
@@ -175,26 +174,20 @@ export function DashboardSidebar() {
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="p-3">
-        <SidebarGroup>
-          <SidebarMenu>
+      <SidebarContent className="px-4 pt-5">
+        <SidebarGroup className="p-0">
+          <SidebarMenu className="gap-0.5">
             {menuItemsByRole[role]?.map((item) => {
               const active = pathname === item.url;
               return (
                 <SidebarMenuItem key={item.id}>
-                  {active && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute -left-2 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r-full bg-[#5c53fe]"
-                    />
-                  )}
                   <SidebarMenuButton
                     render={<Link href={item.url} />}
                     isActive={active}
                     className={
                       active
-                        ? "bg-[#1b1b25] text-white hover:bg-[#1b1b25] hover:text-white"
-                        : "text-[#8f8f9b] hover:bg-white/5 hover:text-white"
+                        ? "h-10 rounded-lg px-3 text-sm font-medium text-[#f4f4f5]! data-active:bg-[#232327]! data-active:text-[#f4f4f5]! hover:bg-[#232327]! hover:text-[#f4f4f5]! [&_svg]:size-5! [&_svg]:text-[#5c53fe]!"
+                        : "h-10 rounded-lg px-3 text-[13px] font-medium text-[#a1a4aa] hover:bg-white/5! hover:text-[#f4f4f5]! [&_svg]:size-[18px]!"
                     }
                   >
                     <item.icon />
