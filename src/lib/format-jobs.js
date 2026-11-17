@@ -28,3 +28,23 @@ export const formatJobLocation = (job) => {
 
 export const formatJobCategory = (category) =>
   category ? category.charAt(0).toUpperCase() + category.slice(1) : "";
+
+export const formatJobDeadline = (deadline) => {
+  if (!deadline) {
+    return "";
+  }
+
+  const date = new Date(
+    deadline.includes("T") ? deadline : `${deadline}T00:00:00`,
+  );
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
