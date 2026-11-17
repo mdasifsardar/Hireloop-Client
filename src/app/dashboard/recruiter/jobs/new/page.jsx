@@ -18,8 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import createJob from "@/lib/actions/jobs";
 import { toast } from "sonner";
+import { createJob } from "@/lib/actions/jobs";
 
 const emptyForm = {
   isRemote: false,
@@ -42,12 +42,10 @@ export default function PostNewJobPage() {
       jobType,
     };
 
-    console.log("Published Job Data =>", jobData);
-
     try {
       const response = await createJob(jobData);
 
-      if (!response.success) {
+      if (response.success) {
         toast.error(response?.message || "Failed to add job!");
         setLoading(false);
         return;

@@ -1,5 +1,9 @@
 import React from "react";
 
+export const metadata = {
+  title: "Hireloop — Dashboard",
+};
+
 const RecruiterDashboardPage = () => {
   return (
     <div>
