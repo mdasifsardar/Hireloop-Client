@@ -1,11 +1,23 @@
 "use client";
 
 import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function JobSearch() {
-  const handleSearch = (event) => {
-    event.preventDefault();
-    // Search functionality will be implemented later.
+  const router = useRouter();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    console.log("After submit form data =>", data);
+
+    const search = data.searchField;
+    const params = new URLSearchParams();
+    params.set("search", search);
+
+    router.push(`/browse-jobs?${params.toString()}`);
   };
 
   return (
@@ -17,7 +29,7 @@ export function JobSearch() {
         <Search className="size-5 shrink-0 text-[#a0a0ab]" aria-hidden="true" />
         <input
           type="text"
-          name="q"
+          name="searchField"
           placeholder="Search by job title, keywords..."
           aria-label="Search jobs"
           autoComplete="off"
@@ -27,7 +39,7 @@ export function JobSearch() {
 
       <button
         type="submit"
-        className="h-12 shrink-0 rounded-xl bg-white px-6 text-sm font-semibold text-[#0b0b0c] transition-colors hover:bg-[#e4e4e7]"
+        className="h-12 shrink-0 rounded-xl bg-white px-6 text-sm font-semibold text-[#0b0b0c] transition-colors hover:bg-[#e4e4e7] cursor-pointer"
       >
         Search Jobs
       </button>

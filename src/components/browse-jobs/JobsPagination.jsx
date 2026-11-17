@@ -1,11 +1,8 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const defaultPages = [1, 2, 3, "…", 42];
+const defaultPages = [1, 2, 3, "…", 10];
 
-export function JobsPagination({
-  pages = defaultPages,
-  activePage = 1,
-}) {
+export function JobsPagination({ pages = defaultPages, activePage = 1 }) {
   return (
     <nav
       aria-label="Job pagination"

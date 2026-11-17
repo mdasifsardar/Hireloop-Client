@@ -1,8 +1,21 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 export function JobFilters({ groups }) {
-  const handleFilterChange = () => {
-    // Filter functionality will be implemented later.
+  const [selectedFilters, setSelectedFilters] = useState({});
+  const router = useRouter();
+
+  const handleFilterChange = (groupId, label) => {
+    const updatedFilters = {
+      ...selectedFilters,
+      [groupId]: selectedFilters[groupId] === label ? "" : label,
+    };
+    setSelectedFilters(updatedFilters);
+
+    const params = new URLSearchParams(updatedFilters);
+    router.push(`/browse-jobs?${params.toString()}`);
   };
 
   return (
@@ -26,8 +39,8 @@ export function JobFilters({ groups }) {
                     type="checkbox"
                     name={group.id}
                     value={option.label}
-                    defaultChecked={option.defaultChecked}
-                    onChange={handleFilterChange}
+                    checked={selectedFilters[group.id] === option.label}
+                    onChange={() => handleFilterChange(group.id, option.label)}
                     className="size-4 cursor-pointer accent-white"
                   />
                   <span className="text-[13px] text-[#d4d4d8]">
